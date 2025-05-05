@@ -12,29 +12,142 @@ This is a scalable and dynamic system designed to manage IoT devices in a factor
 
 ## Project Structure
 ```
-.
-├── backend/
-│   ├── src/
-│   │   ├── modules/
-│   │   │   ├── factory/
-│   │   │   ├── plant/
-│   │   │   ├── block/
-│   │   │   ├── machine/
-│   │   │   ├── sensor/
-│   │   │   ├── powerData/
-│   │   │   ├── dynamicParameters/
-│   │   ├── main.ts
-│   ├── tsconfig.json
-│   ├── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── App.tsx
-│   ├── package.json
-│   ├── tailwind.config.js
-├── .env
-└── README.md
+my-factory-iot-app/
+├── src/
+│   ├── main.ts                        # Entry point
+│   ├── app.module.ts                  # Root module
+│   ├── app.controller.ts              # Root controller
+│   ├── app.service.ts                 # Root service
+│   ├── common/                        # Shared resources
+│   │   ├── decorators/                # Custom decorators
+│   │   ├── filters/                   # Exception filters
+│   │   ├── guards/                    # Guards (auth, roles)
+│   │   ├── interceptors/              # Interceptors
+│   │   ├── middlewares/               # Middlewares
+│   │   ├── pipes/                     # Validation pipes
+│   │   ├── dto/                       # Shared DTOs
+│   │   └── utils/                     # Utility functions
+│   ├── config/                        # Configuration
+│   │   ├── database.config.ts         # Database config
+│   │   ├── app.config.ts              # App config
+│   │   └── env.validation.ts          # Env validation
+│   ├── modules/
+│   │   ├── auth/                      # Authentication
+│   │   │   ├── auth.module.ts
+│   │   │   ├── auth.controller.ts
+│   │   │   ├── auth.service.ts
+│   │   │   ├── strategies/            # Auth strategies
+│   │   │   └── guards/                # Auth guards
+│   │   ├── users/                     # Users module
+│   │   │   ├── users.module.ts
+│   │   │   ├── users.controller.ts
+│   │   │   ├── users.service.ts
+│   │   │   ├── dto/                   # Data transfer objects
+│   │   │   └── entities/              # User entity
+│   │   ├── roles/                     # Roles management
+│   │   │   ├── roles.module.ts
+│   │   │   ├── roles.controller.ts
+│   │   │   ├── roles.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── permissions/               # Permissions
+│   │   │   ├── permissions.module.ts
+│   │   │   ├── permissions.controller.ts
+│   │   │   ├── permissions.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── factories/                 # Factories
+│   │   │   ├── factories.module.ts
+│   │   │   ├── factories.controller.ts
+│   │   │   ├── factories.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── divisions/                 # Divisions
+│   │   │   ├── divisions.module.ts
+│   │   │   ├── divisions.controller.ts
+│   │   │   ├── divisions.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── division-types/            # Division types
+│   │   │   ├── division-types.module.ts
+│   │   │   ├── division-types.controller.ts
+│   │   │   ├── division-types.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── machines/                  # Machines
+│   │   │   ├── machines.module.ts
+│   │   │   ├── machines.controller.ts
+│   │   │   ├── machines.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── iot-devices/               # IoT devices
+│   │   │   ├── iot-devices.module.ts
+│   │   │   ├── iot-devices.controller.ts
+│   │   │   ├── iot-devices.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── iot-device-types/          # IoT device types
+│   │   │   ├── iot-device-types.module.ts
+│   │   │   ├── iot-device-types.controller.ts
+│   │   │   ├── iot-device-types.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── parameters/                # Parameters
+│   │   │   ├── parameters.module.ts
+│   │   │   ├── parameters.controller.ts
+│   │   │   ├── parameters.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── measured-data/             # Measured data
+│   │   │   ├── measured-data.module.ts
+│   │   │   ├── measured-data.controller.ts
+│   │   │   ├── measured-data.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── dashboard-widgets/         # Dashboard widgets
+│   │   │   ├── dashboard-widgets.module.ts
+│   │   │   ├── dashboard-widgets.controller.ts
+│   │   │   ├── dashboard-widgets.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── user-dashboard/            # User dashboards
+│   │   │   ├── user-dashboard.module.ts
+│   │   │   ├── user-dashboard.controller.ts
+│   │   │   ├── user-dashboard.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   ├── notifications/             # Notifications
+│   │   │   ├── notifications.module.ts
+│   │   │   ├── notifications.controller.ts
+│   │   │   ├── notifications.service.ts
+│   │   │   ├── dto/
+│   │   │   └── entities/
+│   │   └── notification-types/        # Notification types
+│   │       ├── notification-types.module.ts
+│   │       ├── notification-types.controller.ts
+│   │       ├── notification-types.service.ts
+│   │       ├── dto/
+│   │       └── entities/
+│   └── database/                      # Database
+│       ├── database.module.ts
+│       ├── database.providers.ts
+│       ├── migrations/                # Migrations
+│       └── seeds/                     # Seed data
+├── test/                              # Tests
+│   ├── app.e2e-spec.ts
+│   └── jest-e2e.json
+├── dist/                              # Compiled output
+├── node_modules/
+├── .env                               # Environment variables
+├── .env.example
+├── .eslintrc.js
+├── .gitignore
+├── .prettierrc
+├── nest-cli.json
+├── package.json
+├── README.md
+├── tsconfig.json
+└── tsconfig.build.json
 ```
 
 ## Prerequisites
